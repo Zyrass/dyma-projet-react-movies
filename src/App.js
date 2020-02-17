@@ -5,9 +5,11 @@ import { Header, MovieList, MovieDetails } from './components';
 function App() {
   return (
     <div className="App">
-      <Header />
-      <MovieList />
-      <MovieDetails />
+        <Header />
+      <div className="d-flex">
+        <MovieList />
+        <MovieDetails />
+      </div>
     </div>
   );
 }

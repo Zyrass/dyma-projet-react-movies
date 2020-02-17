@@ -4,10 +4,12 @@ import { Header, MovieList, MovieDetails } from './components';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App d-flex flex-column">
         <Header />
-      <div className="d-flex">
-        <MovieList />
+      
+      { /* flex-fill permet de prendre toute la hauteur restante */ }
+      <div className="d-flex flex-row flex-fill pt-4">
+        <MovieList />        
         <MovieDetails />
       </div>
     </div>

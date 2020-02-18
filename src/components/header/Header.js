@@ -6,7 +6,7 @@ export default class Header extends Component {
     return (
       <header className="navbar navbar-expand-lg navbar-dark bg-dark">
 
-        <a className="navbar-brand" href="/" >React Movie</a>
+        <a className="navbar-brand" href="/" >React Movies</a>
         <button className="navbar-toggler">
           <span className="navbar-toggler-icon"></span>
         </button>

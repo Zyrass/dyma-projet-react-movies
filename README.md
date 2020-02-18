@@ -1,6 +1,5 @@
 # React Movie
-Début d'une application sur l'ajout de plusieurs film en favoris
-
+Début d'une application sur l'ajout de plusieurs films en favoris
 
 # Rendu actuel
 

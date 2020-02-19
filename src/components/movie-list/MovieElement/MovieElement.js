@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Style from "./MovieElement.module.scss";
 
 export default class MovieElement extends Component {
 
@@ -8,13 +9,16 @@ export default class MovieElement extends Component {
 
   render() {
     return (
-      <div onMouseEnter={ this.mouseEnter } className="w-50  p-1">
-        <div className="card">
+      <div 
+        onMouseEnter={ this.mouseEnter }
+        className={ "w-50 p-1 " + Style.container }
+      >
+        <div className="card ">
 
           <img 
             src={ this.props.movie.image }
             alt={ "image du film : " + this.props.movie.title }
-            className="card-img-top"
+            className="card-img-top "
             height="200"
           />
           <div className="card-body">

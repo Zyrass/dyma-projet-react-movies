@@ -22,25 +22,7 @@ class App extends Component {
 
   }
 
-  updateSelectedMovie = ( /* title */ index ) => {
-
-    /**
-     * ---------- SI PARAMETRE === title
-     * La méthode findIndex prends un callback en paramètre.
-     * Le paramètre va correspondre à chacun des éléments de l'array movies
-     * -------------------------------------------------------------------------
-
-    const index = this.state.movies.findIndex( ( iteratorMovie ) => {
-      return title === iteratorMovie.title;
-    });
-
-    this.setState({
-      selectedMovie: index
-    });
-
-     * -------------------------------------------------------------------------
-     */
-
+  updateSelectedMovie = ( index ) => {
     this.setState({
       selectedMovie: index
     });
@@ -49,14 +31,14 @@ class App extends Component {
   render() {
     return (
       <div className="App d-flex flex-column">
-          <Header />
         
-        { /* flex-fill permet de prendre toute la hauteur restante */ }
+        <Header />
+        
         <div className="d-flex flex-row flex-fill pt-4">
-          
           { this.state.loaded ? (
 
             <>
+              
               <MovieList 
                 movies={ this.state.movies }
                 updateSelectedMovie={ this.updateSelectedMovie }
@@ -65,15 +47,12 @@ class App extends Component {
               <MovieDetails
                 movie={ this.state.movies[ this.state.selectedMovie ] }
               />
+
             </>
 
           ) : (
             <Loading />
           ) }
-
-
-
-
 
         </div>
       </div>

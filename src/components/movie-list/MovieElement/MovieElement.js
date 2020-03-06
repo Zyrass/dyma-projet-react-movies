@@ -1,25 +1,30 @@
 import React, { Component } from "react";
-import Style from "./MovieElement.module.scss";
+import StyleElement from "./MovieElement.module.scss";
 
 export default class MovieElement extends Component {
 
-  mouseEnter = () => {
+  handleMovieClick = () => {
     this.props.updateSelectedMovie(this.props.movie.title)
   }
 
   render() {
     return (
       <div 
-        onMouseEnter={ this.mouseEnter }
-        className={ "w-50 p-1 " + Style.container }
+        onClick={ this.handleMovieClick }
+        className={ StyleElement.container }
       >
         <div className="card ">
-
           <img 
             src={ this.props.movie.image }
             alt={ "image du film : " + this.props.movie.title }
-            className="card-img-top "
-            height="200"
+            className="img-fluid"
+            style={
+              { 
+                maxWidth: "300px",
+                minHeight: "200px",
+                maxHeight: "200px"
+              }
+            }
           />
           <div className="card-body">
             <h5 className="card-title">{ this.props.movie.title }</h5>

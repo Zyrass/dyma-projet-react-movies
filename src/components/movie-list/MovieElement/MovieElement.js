@@ -13,14 +13,14 @@ export default class MovieElement extends Component {
         onClick={ this.handleMovieClick }
         className={ StyleElement.container }
       >
-        <div className="card ">
+        <div className="card mb-5">
           <img 
-            src={ this.props.movie.image }
+            src={ this.props.movie.img }
             alt={ "image du film : " + this.props.movie.title }
             className="img-fluid"
             style={
               { 
-                maxWidth: "300px",
+                maxWidth: "450px",
                 minHeight: "200px",
                 maxHeight: "200px"
               }
@@ -29,7 +29,7 @@ export default class MovieElement extends Component {
           <div className="card-body">
             <h5 className="card-title">{ this.props.movie.title }</h5>
             <p className="card-text">
-              { this.props.movie.duree }
+              { this.props.movie.details }
             </p>
           </div>
         </div>

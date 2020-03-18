@@ -1,0 +1,15 @@
+Clé de l'API v3 :
+ 
+    e3848ee01e33080bf2aeb19aef66d5db
+
+Exemple requête :
+
+    https://api.themoviedb.org/3/movie/550?api_key=e3848ee01e33080bf2aeb19aef66d5db
+
+
+
+Clé de l'API v4 : 
+
+    eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMzg0OGVlMDFlMzMwODBiZjJhZWIxOWFlZjY2ZDVkYiIsInN1YiI6IjVhZTMwYjZkMGUwYTI2NzQ0NTAyNTJlOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.iZrxAj3NiM274cbouZvlFJm5MwX8DMurVnvNOxcS-QI
+
+  ( tout attâché quelque soit la clé )

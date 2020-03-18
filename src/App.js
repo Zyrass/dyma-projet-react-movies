@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import apiMovie from "./configuration/api.moviedb";
+import apiMovie, { apiMovieMap } from "./configuration/api.moviedb";
 
-import { Header, MovieList, MovieDetails, Loading } from './components';
+import { Header, MovieList, MovieDetails, Loading, SearchBar } from './components';
 
 // A décommenter pour ré-utiliser le fichier de data mais avec l'API plus besoin
 // import dataMovies from "./data";
@@ -37,7 +37,7 @@ class App extends Component {
 
   componentDidMount() {
     
-    apiMovie.get( "/discover/movie" )
+    apiMovie.get( "/discover/movie?language=fr")
     
     // 1er résultat de la promesse retourné par la méthode GET
     .then( response => {
@@ -53,19 +53,7 @@ class App extends Component {
     .then( listMoviesAPI => {
 
       // Je créer une constante qui fera que le tableau de film qui sera le résultat du map sera lui passé en paramètre dans la fonction updtateMovies plus bas.
-      const movies = listMoviesAPI.map( current_movie => ({
-
-        img: 'https://image.tmdb.org/t/p/w500' + 
-              current_movie.backdrop_path,
-        
-        cover: 'https://image.tmdb.org/t/p/w500' + current_movie.poster_path,
-        title: current_movie.title,
-        details:  current_movie.release_date + ' | ' +
-                  current_movie.vote_average + " /10 ( " +
-                  current_movie.vote_count + " )",
-        description: current_movie.overview
-      }));
-
+      const movies = listMoviesAPI.map( apiMovieMap );
       this.updateMovies( movies );
     })
     .catch( errors => console.log( errors ) );
@@ -83,6 +71,9 @@ class App extends Component {
     return (
       <div className="d-flex flex-column">
         <Header />
+        <div className="container-fluid d-flex justify-content-center align-items-center">
+          <SearchBar updateMovies={ this.updateMovies } />
+        </div>
         <div className="d-flex flex-row flex-fill pt-4">
           { this.state.loaded ? (
             <Fragment>

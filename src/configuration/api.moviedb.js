@@ -14,3 +14,16 @@ apiMovie.interceptors.request.use( myRequest => {
 })
 
 export default apiMovie;
+
+
+export const apiMovieMap = current_movie => ({
+  img: 'https://image.tmdb.org/t/p/w500' + 
+  current_movie.backdrop_path,
+
+  cover: 'https://image.tmdb.org/t/p/w500' + current_movie.poster_path,
+  title: current_movie.title,
+  details:  current_movie.release_date + ' | ' +
+            current_movie.vote_average + " /10 ( " +
+            current_movie.vote_count + " )",
+  description: current_movie.overview
+})

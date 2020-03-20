@@ -17,9 +17,9 @@ export default apiMovie;
 
 
 export const apiMovieMap = current_movie => ({
-  img: 'https://image.tmdb.org/t/p/w500' + 
-  current_movie.backdrop_path,
-
+  
+  // img: 'https://image.tmdb.org/t/p/w500' +   current_movie.backdrop_path,
+  img: 'https://image.tmdb.org/t/p/w500' + current_movie.poster_path,
   cover: 'https://image.tmdb.org/t/p/w500' + current_movie.poster_path,
   title: current_movie.title,
   details:  current_movie.release_date + ' | ' +

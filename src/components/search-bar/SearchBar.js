@@ -39,21 +39,11 @@ class SearchBar extends Component {
           handleSubmit,
           isSubmitting
         }) => (
-          <form className="my-5" onSubmit={ handleSubmit }>
-            <div className="d-flex flex-row">
-
-              <input 
-                type="text" 
-                placeholder="Rechercher un film ici"
-                className="form-control"
-                name="query"
-
-                onChange = { handleChange }
-                onBlur = { handleBlur }
-              />       
+          <form className="mt-5" onSubmit={ handleSubmit }>
+            <div className="d-flex flex-row w-100">
 
               <select
-                className="form-control w-50 mx-4"
+                className="form-control"
                 name="language"
                 onBlur={ handleBlur }
                 onChange= { handleChange }
@@ -62,9 +52,22 @@ class SearchBar extends Component {
                 <option value="en-US">Anglais</option>
               </select>
 
+              <input 
+                type="text" 
+                placeholder="Rechercher un film ici"
+                className="form-control mx-2"
+                style={{
+                  minWidth: "600px"
+                }}
+                name="query"
+
+                onChange = { handleChange }
+                onBlur = { handleBlur }
+              />
+
               <button 
                 type="submit"
-                className="btn btn-info"
+                className="btn btn-info d-flex flex-row align-items-center"
                 disabled={ isSubmitting}
               >
                 Rechercher

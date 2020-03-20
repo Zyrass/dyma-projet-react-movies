@@ -2,3 +2,13 @@
   cursor: pointer;
   max-height: 400px;
 }
+
+.card_style {
+  display: flex;
+  flex-direction: row;
+  flex-flow: nowrap;
+  align-items: center;
+  min-width: 480px;
+  max-width: 480px;
+  margin: 20px ;
+}

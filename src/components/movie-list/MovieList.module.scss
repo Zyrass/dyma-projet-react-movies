@@ -1,5 +1,6 @@
 .movieList_container {
-  max-width: 75%;
+  min-width: 80%;
+  max-width: 80%;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;

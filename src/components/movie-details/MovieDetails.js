@@ -4,20 +4,16 @@ export default class MovieDetails extends Component {
 
   render() {
     return (
-      <div className="d-flex w-25 p-1 mr-4 fixed-right">
-        <div className="border p-2">
-          <h4>{ this.props.movie.title }</h4>
-          <hr className="w-80" />
+      <div className="d-flex w-15 p-1 mr-4 fixed-right">
+        <div className="border p-2 bg-dark">
+          <h4 className="text-center text-warning p-2">{ this.props.movie.title }</h4>
           <img 
             src={ this.props.movie.cover }
             alt={ "Affiche du film : " + this.props.movie.title }
-            className="img-fluid"
+            className="img-fluid py-3 px-5"
+            width="400"
           />
-          <hr className="w-80" />
-          <ul>
-            <li>Durée : { this.props.movie.duree }</li>
-          </ul>
-          <p>
+          <p className="lead p-4 text-muted">
             { this.props.movie.description }
           </p>
         </div>

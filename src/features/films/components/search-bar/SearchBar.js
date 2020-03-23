@@ -1,20 +1,27 @@
 import React, { Component } from "react";
 import { Formik } from "formik";
 
-import apiMovie, { apiMovieMap } from '../../configuration/api.moviedb'
+import apiMovie, { apiMovieMap } from '../../../../configuration/api.moviedb';
 
 class SearchBar extends Component {
 
-  submit = ( values, actions ) => {
-    // console.log( values );
-    // console.log( "Object.keys(values) : ", Object.keys( values ));
+  submit = ( values, actions ) => {    
+    // Affichage du contenue de values
+    console.log("submit = ( values, actions )", values);
 
-    const query = '?' + Object.keys(values)
+    // console.log de : Objet.keys( values )
+    console.log(
+      "Objet.keys( values ) du fichier SearchBar.js",
+      Object.keys( values )
+    );
+
+    const query = '?' + Object.keys( values )
                               .map( key => {
                                 return `${ key }=${ values[ key ] }&`
                               })
                               .join('');
     
+    // apiMovie du fichier api.moviedb.js correspond à une requête axios
     apiMovie.get('/search/movie' + query)
             .then( response => response.data.results )
             .then( moviesApi => {
@@ -27,7 +34,7 @@ class SearchBar extends Component {
   }
 
   render() {
-    return (
+    return (     
 
       <Formik
         onSubmit = { this.submit }
@@ -55,12 +62,11 @@ class SearchBar extends Component {
               <input 
                 type="text" 
                 placeholder="Rechercher un film ici"
-                className="form-control mx-2"
-                style={{
-                  minWidth: "600px"
-                }}
+                className= { "form-control mx-2 " }
+                style = { 
+                  { minWidth: "600px" }
+                }
                 name="query"
-
                 onChange = { handleChange }
                 onBlur = { handleBlur }
               />

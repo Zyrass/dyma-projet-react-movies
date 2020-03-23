@@ -4,15 +4,16 @@ export default () => {
 
   return (      
     <div 
-      style={{
-        minHeight: '100vh'
-      }}
-      className="
-        d-flex 
-        flex-row 
-        justify-content-center 
-        align-items-center 
-        w-100"
+      style={
+        {
+          minHeight: '100vh',
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          minWidth: "100%"
+        }
+      }
     >
       <img
         src="https://thumbs.gfycat.com/FlickeringTemptingDoctorfish-max-1mb.gif"

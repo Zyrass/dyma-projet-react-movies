@@ -12,7 +12,7 @@ const apiMovie = axios.create({
   baseURL: 'https://api.themoviedb.org/4'
 })
 
-// Définition de ma clé d'authentification de l'API
+// Définition de ma clé d'authentification (API the moviedb)
 apiMovie.interceptors.request.use( myRequest => {
   console.log( "api.moviedb.js, param myRequest = ", myRequest );
 
@@ -25,9 +25,8 @@ apiMovie.interceptors.request.use( myRequest => {
 
 export default apiMovie;
 
-
-// Cette méthode est utilisée 2x donc pour éviter une répétition du code, elle 
-// a été implanté ici pour la ré-exploiter plus facilement.
+// Cette méthode est utilisée dans 2 map donc pour éviter une répétition
+// du code, elle a été implanté ici pour la ré-exploiter plus facilement.
 export const apiMovieMap = current_movie => (
   {
     // img: 'https://image.tmdb.org/t/p/w500' +   current_movie.backdrop_path,

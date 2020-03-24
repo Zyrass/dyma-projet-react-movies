@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { 
+  BrowserRouter as Router, Route, Switch, Redirect 
+} from "react-router-dom";
+
 import apiMovie, { apiMovieMap } from "./configuration/api.moviedb";
 
 import Films from "./features/films";
+import Favoris from "./features/favoris/";
 import { Header } from './components';
 
 // A décommenter pour ré-utiliser le fichier de data mais avec l'API plus besoin
@@ -68,20 +73,35 @@ class App extends Component {
 
   render() {
     return (
-      <div className="d-flex flex-column">
-        <Header />
-        <Films
+      <Router>
+        <div className="d-flex flex-column">
+          <Header />
 
-          // Contenu du state
-          movies =              { this.state.movies }
-          selectedMovie =       { this.state.selectedMovie }
-          loaded =              { this.state.loaded }
+          <Switch>
+            <Route path="/films" render={ ( props ) => {
+              return (
+                <Films
 
-          // Méthodes créer
-          updateSelectedMovie = { this.updateSelectedMovie }
-          updateMovies =        { this.updateMovies }
-        />
-      </div>
+                  // Ces props peuvent être en rapport avec le routing
+                  { ...props }
+
+                  // Contenu du state
+                  movies =              { this.state.movies }
+                  selectedMovie =       { this.state.selectedMovie }
+                  loaded =              { this.state.loaded }
+                  // Méthodes créer
+                  updateSelectedMovie = { this.updateSelectedMovie }
+                  updateMovies =        { this.updateMovies }
+                />
+              )
+            }}/>
+            
+            <Route path="/favoris" component={ Favoris } />
+
+            <Redirect to="/films" />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }

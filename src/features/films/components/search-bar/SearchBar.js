@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Formik } from "formik";
-
 import apiMovie, { apiMovieMap } from '../../../../configuration/api.moviedb';
-
 class SearchBar extends Component {
 
   submit = ( values, actions ) => {    
@@ -25,10 +23,12 @@ class SearchBar extends Component {
     apiMovie.get('/search/movie' + query)
             .then( response => response.data.results )
             .then( moviesApi => {
+              
               // apiMovieMap est une méthode créer dans le fichier de config.
               const movies = moviesApi.map( apiMovieMap );
               this.props.updateMovies( movies );
               actions.setSubmitting( false );
+              
             })
             .catch( errors => console.log( errors ));
   }

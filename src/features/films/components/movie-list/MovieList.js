@@ -9,10 +9,15 @@ export default class MovieList extends Component {
       <div 
         className={ StyleList.movieList_container }>
         
-        { this.props.movies.map( ( currentMovie, index ) => (
+        { this.props.movies.map( ( m, index ) => (
           <MovieElement
-            key={ currentMovie.id + index }
-            movie={ currentMovie }
+            key={ m.id }
+            movie={ m }
+
+            isFavori= { this.props.favoris.includes(m.title) }
+            addFavori= { this.props.addFavori }
+            removeFavori= { this.props.removeFavori }
+            
             updateSelectedMovie={() => {this.props.updateSelectedMovie(index)}}
           />
         ))}

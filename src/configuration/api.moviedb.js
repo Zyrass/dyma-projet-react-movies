@@ -14,7 +14,7 @@ const apiMovie = axios.create({
 
 // Définition de ma clé d'authentification (API the moviedb)
 apiMovie.interceptors.request.use( myRequest => {
-  console.log( "api.moviedb.js, param myRequest = ", myRequest );
+  // console.log( "api.moviedb.js, param myRequest = ", myRequest );
 
   // Sans cette ligne dans l'onglet network de la console du navigateur,
   // J'aurais eu une erreur 401 comme quoi je ne suis pas authentifié.

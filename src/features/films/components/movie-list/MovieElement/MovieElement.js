@@ -28,14 +28,35 @@ export default class MovieElement extends Component {
               }
             }
           />
-          <div className="card-body">
+          <div className="card-body flex-fill d-flex flex-column p-3">
             <h5 className="card-title text-center">
               { this.props.movie.title }
             </h5>
             <hr className="w-80" />
-            <p className="card-text text-center">
+            <p className="card-text text-center flex-fill">
               { this.props.movie.details }
             </p>
+            <div className="d-flex flex-row justify-content-end">
+
+              { this.props.isFavori ? (
+
+                // Si favoris 
+                <button
+                  className="btn btn-small btn-danger"
+                  onClick={()=>{this.props.removeFavori(this.props.movie.title)}}
+                >Supprimer</button>
+
+              ) : (
+
+                // Si il n'est pas dans les favoris
+                <button 
+                  className="btn btn-small btn-primary"
+                  onClick={() => {this.props.addFavori(this.props.movie.title)}}
+                >Ajouter</button>
+                
+              ) }
+
+            </div>
           </div>
         </div>
       </div>

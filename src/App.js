@@ -20,14 +20,8 @@ class App extends Component {
       movies: null,
       selectedMovie: 0,
       loaded: false,
+      favoris: []
     }
-  }
-
-  // Lors du clic sur un film, je mets à jour le film sélectionné
-  updateSelectedMovie = ( index ) => {
-    this.setState({
-      selectedMovie: index
-    });
   }
 
   componentDidMount() {
@@ -37,10 +31,13 @@ class App extends Component {
             
             // Premier then : Découverte du contenu de la requête
             .then( response => {
+
               // Le contenu complet de la response
               console.log( "apiMovie.get du fichier App.js :", response );
+
               // Le tableau de films de la response
               console.log( "response.data.results", response.data.results );
+
               return response.data.results;
             })
             
@@ -50,7 +47,7 @@ class App extends Component {
               // listMoviesAPI contient un tableau de film.
               // Soit c'est l'équivalent de response.data.results 
               console.log( "listMoviesAPI : ", listMoviesAPI );
-              
+
               // apiMovieMap correspond quant à une méthode dans api.moviedb.js
               const movies = listMoviesAPI.map( apiMovieMap );
 
@@ -63,6 +60,13 @@ class App extends Component {
 
   } // Fin componentDidMMount()
 
+  // Lors du clic sur un film, je mets à jour le film sélectionné
+  updateSelectedMovie = ( index ) => {
+    this.setState({
+      selectedMovie: index
+    });
+  }
+
   // Mise à jour des films + modification du composant "loaded: true"
   updateMovies = ( movies ) => {
     this.setState({
@@ -71,39 +75,84 @@ class App extends Component {
     })
   }
 
+  addFavori = ( title ) => {
+    try {
+
+      console.log( "addFavori : title", title);
+
+      const listFavoris = this.state.favoris.slice();
+      
+      const film = this.state.movies.find( m => m.title === title );
+      
+      listFavoris.push( film );
+      
+      this.setState({
+        favoris: listFavoris
+      });
+
+    } catch ( error ) {
+      console.log( "Error addFavori", error );
+    }
+  }
+
+  removeFavori = ( title ) => {
+    try {
+      
+      console.log( "removeFavori : title", title );
+      
+      const listFavoris = this.state.favoris.slice();
+      
+      const index = this.state.favoris.findIndex( f => f.title === title );
+      
+      listFavoris.splice( index, "1" );
+      
+      this.setState({
+        favoris: listFavoris
+      });
+
+    } catch ( error ) {
+      console.log( "Error removeFavori", error );
+    }
+  }
+
   render() {
     return (
       <Router>
-        <div className="d-flex flex-column">
+        <div className="d-flex flex-column pb-5" style={
+          { backgroundColor: "#eee" }
+        }>
           <Header />
-
           <Switch>
-            <Route path="/films" render={ ( props ) => {
-              return (
-                <Films
-
-                  // Ces props peuvent être en rapport avec le routing
-                  { ...props }
-
-                  // Contenu du state
-                  movies =              { this.state.movies }
-                  selectedMovie =       { this.state.selectedMovie }
-                  loaded =              { this.state.loaded }
-                  // Méthodes créer
-                  updateSelectedMovie = { this.updateSelectedMovie }
-                  updateMovies =        { this.updateMovies }
-                />
-              )
-            }}/>
-            
-            <Route path="/favoris" component={ Favoris } />
-
+            <Route 
+              path="/films"
+              render={ ( props ) => {
+                return (
+                  <Films
+                    
+                    // Ces props peuvent être en rapport avec le routing
+                    { ...props }
+                    
+                    // Contenu du state
+                    movies = { this.state.movies }
+                    selectedMovie = { this.state.selectedMovie }
+                    loaded = { this.state.loaded }
+                    updateSelectedMovie = { this.updateSelectedMovie }
+                    updateMovies = { this.updateMovies }
+                    
+                    addFavori = { this.addFavori }
+                    removeFavori = { this.removeFavori }
+                    favoris = { this.state.favoris.map( f => f.title ) }
+                  />
+                );
+              }}
+            />            
+            <Route path="/favoris" component={ Favoris } />            
             <Redirect to="/films" />
           </Switch>
         </div>
       </Router>
     );
-  }
+  } // Fin render()
 }
 
 export default App;

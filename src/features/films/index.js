@@ -5,8 +5,6 @@ import { MovieList, MovieDetails, SearchBar } from "./components";
 
 // J'importe le composant traitant le chargement...
 import Loading from "../../components/utils/Loading";
-
-// J'importe le style CSS
 import Styles from "./index.module.scss";
 
 // Compostant fonctionnel : Dans App.js, il se nomme Films
@@ -18,12 +16,12 @@ export default ( props ) => {
   return (
     <Fragment>
       <div 
+
         // J'utilise ici une concaténation d'une classe Bootstrap native avec
         // l'utilisation d'une classe searchBar__container
         className={ "container-fluid " + Styles.searchBar__container } 
       >
-        <SearchBar 
-
+        <SearchBar
           // Je passe la méthode qui permet la mise à jour de la liste des films
           updateMovies={ props.updateMovies }
         />
@@ -36,15 +34,18 @@ export default ( props ) => {
           props.loaded ? (
             <Fragment>
               <MovieList
-                
+
                 // ici je passe la liste des films récupérer via les props de
                 // <Films />
                 movies={ props.movies }
-                
+
                 // ici je passe la méthode qui permet de mettre à jour un film
                 // lors du clic sur celui-ci. Elle est créée dans le fichier
                 // App.js
                 updateSelectedMovie={ props.updateSelectedMovie }
+                favoris = { props.favoris }
+                addFavori = { props.addFavori }
+                removeFavori = { props.removeFavori }
               />
 
               <MovieDetails
@@ -52,6 +53,7 @@ export default ( props ) => {
                 // Je passe un film via son emplacement dans l"array de movie
                 // récupéré via les props de <Films />
                 movie={ props.movies[ props.selectedMovie ] }
+
               />
             </Fragment>
           ) : (

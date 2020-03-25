@@ -35,25 +35,22 @@ export default ( props ) => {
             <Fragment>
               <MovieList
 
-                // ici je passe la liste des films récupérer via les props de
-                // <Films />
+                // liste des films récupérer via les props de <Films />
                 movies={ props.movies }
 
                 // ici je passe la méthode qui permet de mettre à jour un film
                 // lors du clic sur celui-ci. Elle est créée dans le fichier
                 // App.js
                 updateSelectedMovie={ props.updateSelectedMovie }
-                favoris = { props.favoris }
+                favoris = { props.favoris.map( f => f.title ) }
                 addFavori = { props.addFavori }
                 removeFavori = { props.removeFavori }
               />
 
               <MovieDetails
-
                 // Je passe un film via son emplacement dans l"array de movie
                 // récupéré via les props de <Films />
                 movie={ props.movies[ props.selectedMovie ] }
-
               />
             </Fragment>
           ) : (

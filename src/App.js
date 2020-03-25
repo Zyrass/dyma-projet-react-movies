@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 
 import apiMovie, { apiMovieMap } from "./configuration/api.moviedb";
+import apiFirebase from "./configuration/api.firebase";
 
 import Films from "./features/films";
 import Favoris from "./features/favoris/";
@@ -20,43 +21,41 @@ class App extends Component {
       movies: null,
       selectedMovie: 0,
       loaded: false,
-      favoris: []
+      favoris: null
     }
   }
 
   componentDidMount() {
 
     // La méthode GET, retourne une promesse
-    apiMovie.get( "/discover/movie?language=fr")
-            
+    apiMovie.get( "/discover/movie?language=fr")            
             // Premier then : Découverte du contenu de la requête
             .then( response => {
-
               // Le contenu complet de la response
               console.log( "apiMovie.get du fichier App.js :", response );
-
               // Le tableau de films de la response
               console.log( "response.data.results", response.data.results );
-
               return response.data.results;
-            })
-            
+            })            
             // Seconde then : Je passe à celui ci la reqête à traiter.
-            .then( listMoviesAPI => {
-              
+            .then( listMoviesAPI => {              
               // listMoviesAPI contient un tableau de film.
               // Soit c'est l'équivalent de response.data.results 
               console.log( "listMoviesAPI : ", listMoviesAPI );
-
               // apiMovieMap correspond quant à une méthode dans api.moviedb.js
               const movies = listMoviesAPI.map( apiMovieMap );
-
               // J'utilise la méthode pour mettre à jour les films
               this.updateMovies( movies );
-            })
-            
+            })            
             // Je capture une quelconque erreur ici et je l'affiche
             .catch( errors => console.log( "Errors apiMovie.get :", errors ) );
+
+    apiFirebase.get( "favoris.json" )
+                .then( response => {
+                  console.log( response );
+                  let favoris = response.data ? response.data : [];
+                  this.updateFavoris( favoris );
+                })
 
   } // Fin componentDidMMount()
 
@@ -71,25 +70,28 @@ class App extends Component {
   updateMovies = ( movies ) => {
     this.setState({
       movies,
-      loaded: true
+      loaded: this.state.favoris ? true : false
+    })
+  }
+
+  updateFavoris = ( favoris ) => {
+    this.setState({
+      favoris : favoris,
+      loaded: this.state.movies ? true : false
     })
   }
 
   addFavori = ( title ) => {
     try {
-
       console.log( "addFavori : title", title);
-
       const listFavoris = this.state.favoris.slice();
-      
       const film = this.state.movies.find( m => m.title === title );
-      
       listFavoris.push( film );
-      
       this.setState({
         favoris: listFavoris
+      }, () => {
+        this.saveFavoris();
       });
-
     } catch ( error ) {
       console.log( "Error addFavori", error );
     }
@@ -97,22 +99,22 @@ class App extends Component {
 
   removeFavori = ( title ) => {
     try {
-      
       console.log( "removeFavori : title", title );
-      
       const listFavoris = this.state.favoris.slice();
-      
       const index = this.state.favoris.findIndex( f => f.title === title );
-      
       listFavoris.splice( index, "1" );
-      
       this.setState({
         favoris: listFavoris
+      }, () => {
+        this.saveFavoris();
       });
-
     } catch ( error ) {
       console.log( "Error removeFavori", error );
     }
+  }
+
+  saveFavoris = () => {
+    apiFirebase.put("favoris.json", this.state.favoris);
   }
 
   render() {
@@ -131,20 +133,17 @@ class App extends Component {
               render={ ( props ) => {
                 return (
                   <Films
-                    
                     // Ces props peuvent être en rapport avec le routing
-                    { ...props }
-                    
+                    { ...props }                    
                     // Contenu du state
                     movies = { this.state.movies }
                     selectedMovie = { this.state.selectedMovie }
                     loaded = { this.state.loaded }
                     updateSelectedMovie = { this.updateSelectedMovie }
-                    updateMovies = { this.updateMovies }
-                    
+                    updateMovies = { this.updateMovies }                    
                     addFavori = { this.addFavori }
                     removeFavori = { this.removeFavori }
-                    favoris = { this.state.favoris.map( f => f.title ) }
+                    favoris = { this.state.favoris }
                   />
                 );
               }}
@@ -154,9 +153,10 @@ class App extends Component {
               render={ ( props ) => {
                 return (
                   <Favoris
+                    { ...props }
+                    loaded = { this.state.loaded }
                     favoris={ this.state.favoris }
                     removeFavori={ this.removeFavori }
-
                   />
                 )
               }} 

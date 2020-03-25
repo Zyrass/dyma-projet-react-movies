@@ -6,9 +6,8 @@ class FavoriList extends Component {
 
   render() {
     return (
-      <div 
-        className={ StyleList.favoriList_container }>        
-        { this.props.favoris.map( ( f, index ) => (
+      <div className={ StyleList.favoriList_container }>        
+        { this.props.favoris.map( f => (
           <FavoriElement
             key={ f.id }
             favori={ f }

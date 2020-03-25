@@ -1,7 +1,15 @@
 import React from "react";
+import FavoriList from "./components/favori-list/FavoriList";
 
-export default ( props ) => {
+const Favoris = ( props ) => {
   return (
-    <h1>Favoris</h1>
+    <div className="d-flex flex-row flex-fill pt-4">
+      <FavoriList 
+        favoris = { props.favoris }
+        removeFavori = { props.removeFavori }
+      />
+    </div>
   )
 }
+
+export default Favoris;

@@ -119,7 +119,10 @@ class App extends Component {
     return (
       <Router>
         <div className="d-flex flex-column pb-5" style={
-          { backgroundColor: "#eee" }
+          { 
+            backgroundColor: "#eee",
+            minHeight: "100vh"
+          }
         }>
           <Header />
           <Switch>
@@ -146,7 +149,18 @@ class App extends Component {
                 );
               }}
             />            
-            <Route path="/favoris" component={ Favoris } />            
+            <Route 
+              path="/favoris" 
+              render={ ( props ) => {
+                return (
+                  <Favoris
+                    favoris={ this.state.favoris }
+                    removeFavori={ this.removeFavori }
+
+                  />
+                )
+              }} 
+            />            
             <Redirect to="/films" />
           </Switch>
         </div>

@@ -1,0 +1,15 @@
+.container {
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.card_style {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  min-width: 440px;
+  max-width: 440px;
+  margin: 20px ;
+}
